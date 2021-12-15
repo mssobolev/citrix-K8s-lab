@@ -9,4 +9,4 @@ VIP network - 10.0.1.0/24
 
 Unified Ingress topology
 
-![Alt text](relative/path/to/ui.jpg?raw=true "Title")
+![Unified Ingress](ui.png)
