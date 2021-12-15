@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: main-app-cpx-ing
+  annotations:
+    ingress.citrix.com/insecure-port: "80"
+    ingress.citrix.com/csvserver: '{"stateupdate": "ENABLED"}'
+    kubernetes.io/ingress.class: "cpx1"
+spec:
+  rules:
+  - host: app01.ms.local
+    http:
+      paths:
+      - path: /main.html
+        backend:
+          serviceName: app01-service
+          servicePort: 80

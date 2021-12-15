@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app02-mobile
+  name: app02-mobile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app02-mobile
+  template:
+    metadata:
+      labels:
+        app: app02-mobile
+    spec:
+      containers:
+      - image: nginx:latest
+        name: nginx
+        ports:
+         - containerPort: 80
+        name: nginx
+        volumeMounts:
+        - name: htmlcontent4
+          mountPath: "/usr/share/nginx/html/"
+          readOnly: true
+      volumes:
+      - name: htmlcontent4
+        configMap:
+          name: mobile.html
+          items:
+          - key: mobile.html
+            path: mobile.html
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app02-service
+spec:
+  selector:
+    app: app02-mobile
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

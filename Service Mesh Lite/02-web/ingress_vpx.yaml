@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cpx-ingress-vpx
+  annotations:
+    ingress.citrix.com/insecure-port: "80"
+    ingress.citrix.com/frontend-ip: "10.0.1.5"
+    kubernetes.io/ingress.class: "citrixvpx"
+spec:
+  rules:
+  - host: app01.ms.lab
+    http:
+      paths:
+      - path: /main.html
+        backend:
+          serviceName: cpx-service
+          servicePort: 80

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app01-main
+  name: app01-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app01-main
+  template:
+    metadata:
+      labels:
+        app: app01-main
+    spec:
+      containers:
+      - image: nginx:latest
+        name: nginx
+        ports:
+         - containerPort: 80
+        name: nginx
+        volumeMounts:
+        - name: htmlcontent3
+          mountPath: "/usr/share/nginx/html/"
+          readOnly: true
+      volumes:
+      - name: htmlcontent3
+        configMap:
+          name: main.html
+          items:
+          - key: main.html
+            path: main.html

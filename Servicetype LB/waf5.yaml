@@ -1,0 +1,37 @@
+apiVersion: citrix.com/v1
+kind: waf
+metadata:
+    name: wafadvanced
+spec:
+    servicenames:
+        - apache-service
+    security_checks:
+        common:
+          allow_url: "on"
+          block_url: "on"
+          buffer_overflow: "on"
+          content_type: "on"
+          cookie_consistency: "on"
+          multiple_headers:
+            action: ["log"]
+        html:
+          cross_site_scripting: "on"
+          field_format: "on"
+          sql_injection: "on"
+          form_field_consistency: "on"
+          csrf: "on"
+          fileupload_type: "on"
+        json:
+          dos: "on"
+          sql_injection: "on"
+          cross_site_scripting: "on"
+        xml:
+          dos: "on"
+          wsi: "on"
+          validation: "on"
+          attachment: "on"
+          format: "on"
+    settings:
+        common:
+          allow_url: 
+            closure: "on"

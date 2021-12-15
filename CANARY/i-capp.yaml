@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.citrix.com/frontend-ip: "10.0.1.70"
+    ingress.citrix.com/canary-weight: "10"
+    kubernetes.io/ingress.class: citrixvpx
+  name: canary-by-weight
+spec:
+  rules:
+  - host: app.ms.lab
+    http:
+      paths:
+      - backend:
+         serviceName: guestbook-canary
+         servicePort: 80
+        path: /
+        pathType: Prefix

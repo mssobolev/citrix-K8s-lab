@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mobile-app-cpx-ing
+  annotations:
+    ingress.citrix.com/secure_backend: "false"
+    ingress.citrix.com/lbvserver: '{"lbmethod":"LEASTCONNECTION", "persistenceType":"COOKIEINSERT"}'
+    ingress.citrix.com/frontend-tcpprofile: '{"ws":"enabled", "sack" : "enabled"}'
+    ingress.citrix.com/csvserver: '{"stateupdate": "ENABLED"}'
+    kubernetes.io/ingress.class: "cpx2-mobile"
+
+spec:
+  tls:
+  - secretName: mobile-app-secret
+  rules:
+  - host:  app01.ms.local
+    http:
+      paths:
+      - path: /mobile.html
+        backend:
+          serviceName: app02-service
+          servicePort: 80
+

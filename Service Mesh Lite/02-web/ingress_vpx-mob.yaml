@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-vpx-m
+  annotations:
+   kubernetes.io/ingress.class: "citrixvpx"
+   ingress.citrix.com/frontend-ip: "10.0.1.7"
+   ingress.citrix.com/secure_backend: "true"
+
+spec:
+  tls:
+  - secretName:
+  rules:
+  - host: app01.ms.local
+    http:
+      paths:
+      - path: /mobile.html
+        backend:
+          serviceName: cpx-mobile-service
+          servicePort: 443
+
