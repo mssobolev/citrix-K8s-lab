@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: citrix-ipam-controller
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: citrix-ipam-controller
+  template:
+    metadata:
+      labels:
+        app: citrix-ipam-controller
+    spec:
+      serviceAccountName: citrix-ipam-controller
+      containers:
+      - name: citrix-ipam-controller
+        image: quay.io/citrix/citrix-ipam-controller:1.0.3
+        env:
+        # This IPAM controller takes envirnment variable VIP_RANGE. IPs in this range are used to assign values for IP range
+        - name: "VIP_RANGE"
+          value: '[ {"myvips": ["10.0.1.30-10.0.1.40"]}, {"myvips2": ["10.0.1.210-10.0.1.220"]}]'
+        # The IPAM controller can also be configured with name spaces for which it would work through the environment variable
+        # VIP_NAMESPACES, This expects a set of namespaces passed as space separated string
+        imagePullPolicy: Always
