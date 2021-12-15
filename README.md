@@ -10,3 +10,8 @@ VIP network - 10.0.1.0/24
 Unified Ingress topology
 
 ![Unified Ingress](ui.png)
+
+
+Service Mesh Lite
+
+![Unified Ingress](sml.png)
